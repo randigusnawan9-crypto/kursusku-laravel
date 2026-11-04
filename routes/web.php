@@ -2,6 +2,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CourseController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
 
@@ -88,3 +89,6 @@ Route::post('/proses-pendaftaran', function (Request $request) {
     ]);
 
 })->name('registration.process');
+// ROUTE COURSE - PERTEMUAN 10
+Route::resource('courses', CourseController::class)
+    ->only(['index', 'create', 'store']);
