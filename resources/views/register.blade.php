@@ -9,8 +9,9 @@
             {{-- Judul Halaman --}}
             <div class="mb-4">
                 <h1 class="fw-bold">Daftar Kursus</h1>
+
                 <p class="text-muted">
-                    Isi formulir berikut untuk mendaftar program kursus pilihanmu.
+                    Lengkapi data diri dan pilih program kursus yang ingin kamu ikuti.
                 </p>
             </div>
 
@@ -44,7 +45,7 @@
                             @enderror
                         </div>
 
-                        {{-- Email --}}
+                        {{-- Alamat Email --}}
                         <div class="mb-3">
                             <label for="email" class="form-label">
                                 Alamat Email
@@ -56,7 +57,7 @@
                                 id="email"
                                 class="form-control @error('email') is-invalid @enderror"
                                 value="{{ old('email') }}"
-                                placeholder="nama@email.com"
+                                placeholder="contoh@email.com"
                                 maxlength="255"
                                 required
                             >
@@ -66,8 +67,8 @@
                             @enderror
                         </div>
 
-                        {{-- Pilihan Kursus --}}
-                        <div class="mb-3">
+                        {{-- Pilih Kursus --}}
+                        <div class="mb-4">
                             <label for="course" class="form-label">
                                 Pilih Kursus
                             </label>
@@ -110,125 +111,34 @@
                             <div id="courseAvailability" class="mt-3"></div>
                         </div>
 
-                        {{-- Jenis Peserta --}}
-                        <fieldset class="mb-3">
-                            <legend class="form-label fs-6">
-                                Jenis Peserta
-                            </legend>
-
-                            <div class="form-check">
-                                <input
-                                    type="radio"
-                                    name="participant_type"
-                                    id="mahasiswa"
-                                    value="mahasiswa"
-                                    class="form-check-input"
-                                    {{ old('participant_type', 'mahasiswa') === 'mahasiswa' ? 'checked' : '' }}
-                                    required
-                                >
-
-                                <label for="mahasiswa" class="form-check-label">
-                                    Mahasiswa
-                                </label>
-                            </div>
-
-                            <div class="form-check">
-                                <input
-                                    type="radio"
-                                    name="participant_type"
-                                    id="umum"
-                                    value="umum"
-                                    class="form-check-input"
-                                    {{ old('participant_type') === 'umum' ? 'checked' : '' }}
-                                >
-
-                                <label for="umum" class="form-check-label">
-                                    Umum
-                                </label>
-                            </div>
-
-                            @error('participant_type')
-                                <div class="text-danger small mt-1">{{ $message }}</div>
-                            @enderror
-                        </fieldset>
-
-                        {{-- Minat Belajar --}}
-                        <fieldset class="mb-3">
-                            <legend class="form-label fs-6">
-                                Minat Belajar
-                            </legend>
-
-                            @php
-                                $interestOptions = [
-                                    'Frontend' => 'Frontend',
-                                    'Backend' => 'Backend',
-                                    'Database' => 'Database',
-                                    'UI/UX' => 'UI/UX',
-                                ];
-
-                                $selectedInterests = old('interests', []);
-                            @endphp
-
-                            @foreach ($interestOptions as $value => $label)
-                                <div class="form-check">
-                                    <input
-                                        type="checkbox"
-                                        name="interests[]"
-                                        id="interest_{{ $loop->index }}"
-                                        value="{{ $value }}"
-                                        class="form-check-input"
-                                        {{ in_array($value, $selectedInterests) ? 'checked' : '' }}
-                                    >
-
-                                    <label
-                                        for="interest_{{ $loop->index }}"
-                                        class="form-check-label"
-                                    >
-                                        {{ $label }}
-                                    </label>
-                                </div>
-                            @endforeach
-
-                            @error('interests')
-                                <div class="text-danger small mt-1">{{ $message }}</div>
-                            @enderror
-                        </fieldset>
-
-                        {{-- Catatan --}}
-                        <div class="mb-4">
-                            <label for="note" class="form-label">
-                                Catatan (Opsional)
-                            </label>
-
-                            <textarea
-                                name="note"
-                                id="note"
-                                rows="4"
-                                maxlength="1000"
-                                class="form-control @error('note') is-invalid @enderror"
-                                placeholder="Tuliskan catatan jika ada"
-                            >{{ old('note') }}</textarea>
-
-                            @error('note')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
                         {{-- Tombol --}}
-                        <div class="d-flex flex-wrap gap-2">
-                            <button type="submit" class="btn btn-primary">
-                                Kirim Pendaftaran
-                            </button>
-
+                        <div class="d-flex flex-wrap justify-content-between gap-2 border-top pt-4">
                             <a href="{{ route('home') }}" class="btn btn-outline-secondary">
-                                Kembali ke Beranda
+                                &larr; Kembali
                             </a>
+
+                            <button type="submit" class="btn btn-primary">
+                                Lihat Preview Pendaftaran &rarr;
+                            </button>
                         </div>
 
                     </form>
+
                 </div>
             </div>
 
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const course = document.getElementById('course');
+
+        if (course && course.value) {
+            course.dispatchEvent(new Event('change'));
+        }
+    });
+</script>
+@endpush

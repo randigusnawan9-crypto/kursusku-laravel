@@ -4,20 +4,34 @@
 
 @section('content')
     {{-- Bagian Sambutan --}}
-    <div class="p-5 mb-4 bg-light rounded-3 border">
-        <div class="container-fluid py-4">
-            <h1 class="display-5 fw-bold">
-                Selamat Datang di KursusKu
-            </h1>
+    <div class="p-4 p-md-5 mb-4 bg-light rounded-3 border">
+        <div class="row align-items-center g-4">
+            {{-- Teks Sambutan --}}
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bold">
+                    Selamat Datang di KursusKu
+                </h1>
 
-            <p class="col-md-8 fs-5">
-                Tingkatkan kemampuanmu melalui kursus yang sesuai dengan kebutuhan.
-                Pelajari materi baru dan kembangkan keterampilanmu bersama KursusKu.
-            </p>
+                <p class="fs-5 mt-3">
+                    Tingkatkan kemampuanmu melalui kursus yang sesuai dengan kebutuhan.
+                    Pelajari materi baru dan kembangkan keterampilanmu bersama KursusKu.
+                </p>
 
-            <a href="{{ route('register') }}" class="btn btn-primary btn-lg">
-                Daftar Kursus
-            </a>
+                <a href="{{ route('register') }}" class="btn btn-primary btn-lg mt-2">
+                    Daftar Kursus
+                </a>
+            </div>
+
+            {{-- Foto Sambutan --}}
+            <div class="col-md-6">
+                <div class="hero-image">
+                    <img
+                        src="{{ asset('images/hero-kursus.jpg') }}"
+                        alt="Mahasiswa sedang belajar menggunakan laptop"
+                        class="img-fluid rounded-4 shadow-sm"
+                    >
+                </div>
+            </div>
         </div>
     </div>
 
@@ -26,6 +40,7 @@
         <h2 class="mb-3">Mengapa Belajar di KursusKu?</h2>
 
         <div class="row g-3">
+            {{-- Keunggulan 1 --}}
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
@@ -38,6 +53,7 @@
                 </div>
             </div>
 
+            {{-- Keunggulan 2 --}}
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
@@ -50,6 +66,7 @@
                 </div>
             </div>
 
+            {{-- Keunggulan 3 --}}
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
