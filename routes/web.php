@@ -2,9 +2,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CourseController;
 use Illuminate\Http\Request;
+
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrollmentController;
 
 // ==========================================
 // HALAMAN BERANDA
@@ -16,7 +18,7 @@ Route::get('/', [HomeController::class, 'index'])
 // HALAMAN PENDAFTARAN KURSUS
 // ==========================================
 Route::get('/daftar-kursus', function () {
-    return view('enrollments.create');
+    return redirect()->route('enrollments.create');
 })->name('register');
 
 // ==========================================
@@ -66,7 +68,7 @@ Route::get('/api/course-availability/{course}', function ($course) {
 })->name('course.availability');
 
 // ==========================================
-// PROSES PENDAFTARAN (POST)
+// PROSES PENDAFTARAN LAMA (PERTEMUAN SEBELUMNYA)
 // ==========================================
 Route::post('/proses-pendaftaran', function (Request $request) {
 
@@ -89,8 +91,10 @@ Route::post('/proses-pendaftaran', function (Request $request) {
     ]);
 
 })->name('registration.process');
-// ROUTE COURSE - PERTEMUAN 10
+
+// ==========================================
 // ROUTE COURSE - PERTEMUAN 11
+// ==========================================
 Route::resource('courses', CourseController::class)
     ->only([
         'index',
@@ -100,4 +104,14 @@ Route::resource('courses', CourseController::class)
         'edit',
         'update',
         'destroy'
+    ]);
+
+// ==========================================
+// ROUTE ENROLLMENT - PERTEMUAN 12
+// ==========================================
+Route::resource('enrollments', EnrollmentController::class)
+    ->only([
+        'index',
+        'create',
+        'store'
     ]);

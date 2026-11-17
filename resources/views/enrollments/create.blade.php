@@ -1,144 +1,97 @@
+
 @extends('layouts.app')
 
-@section('title', 'Daftar Kursus - KursusKu')
+@section('title', 'Pendaftaran Peserta - KursusKu')
 
 @section('content')
-    <div class="row justify-content-center">
-        <div class="col-lg-9 col-xl-8">
+<div class="row justify-content-center">
+    <div class="col-lg-8">
 
-            {{-- Judul Halaman --}}
-            <div class="mb-4">
-                <h1 class="fw-bold">Daftar Kursus</h1>
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-primary text-white p-3">
+                <h4 class="mb-0">Form Pendaftaran Kursus</h4>
+            </div>
 
-                <p class="text-muted">
-                    Lengkapi data diri dan pilih program kursus yang ingin kamu ikuti.
+            <div class="card-body p-4">
+
+                <p class="text-muted mb-4">
+                    Pilih peserta dan kursus yang ingin diikuti.
                 </p>
+
+                <form action="{{ route('enrollments.store') }}" method="POST">
+                    @csrf
+
+                    {{-- Pilih Peserta --}}
+                    <div class="mb-3">
+                        <label for="participant_id" class="form-label fw-semibold">
+                            Peserta
+                        </label>
+
+                        <select
+                            name="participant_id"
+                            id="participant_id"
+                            class="form-select @error('participant_id') is-invalid @enderror"
+                        >
+                            <option value="">-- Pilih Peserta --</option>
+
+                            @foreach ($participants as $participant)
+                                <option
+                                    value="{{ $participant->id }}"
+                                    {{ old('participant_id') == $participant->id ? 'selected' : '' }}
+                                >
+                                    {{ $participant->name }} - {{ $participant->email }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        @error('participant_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Pilih Kursus --}}
+                    <div class="mb-3">
+                        <label for="course_id" class="form-label fw-semibold">
+                            Kursus
+                        </label>
+
+                        <select
+                            name="course_id"
+                            id="course_id"
+                            class="form-select @error('course_id') is-invalid @enderror"
+                        >
+                            <option value="">-- Pilih Kursus --</option>
+
+                            @foreach ($courses as $course)
+                                <option
+                                    value="{{ $course->id }}"
+                                    {{ old('course_id') == $course->id ? 'selected' : '' }}
+                                >
+                                    {{ $course->title }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        @error('course_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            Simpan Pendaftaran
+                        </button>
+
+                        <a href="{{ route('enrollments.index') }}"
+                           class="btn btn-outline-secondary">
+                            Lihat Pendaftaran
+                        </a>
+                    </div>
+
+                </form>
             </div>
-
-            {{-- Formulir Pendaftaran --}}
-            <div class="card shadow-sm">
-                <div class="card-body p-4">
-
-                    <form action="{{ route('registration.process') }}" method="POST">
-                        @csrf
-
-                        {{-- Nama Lengkap --}}
-                        <div class="mb-3">
-                            <label for="name" class="form-label">
-                                Nama Lengkap
-                            </label>
-
-                            <input
-                                type="text"
-                                name="name"
-                                id="name"
-                                class="form-control @error('name') is-invalid @enderror"
-                                value="{{ old('name') }}"
-                                placeholder="Masukkan nama lengkap"
-                                minlength="3"
-                                maxlength="100"
-                                required
-                            >
-
-                            @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- Alamat Email --}}
-                        <div class="mb-3">
-                            <label for="email" class="form-label">
-                                Alamat Email
-                            </label>
-
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                class="form-control @error('email') is-invalid @enderror"
-                                value="{{ old('email') }}"
-                                placeholder="contoh@email.com"
-                                maxlength="255"
-                                required
-                            >
-
-                            @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- Pilih Kursus --}}
-                        <div class="mb-4">
-                            <label for="course" class="form-label">
-                                Pilih Kursus
-                            </label>
-
-                            <select
-                                name="course"
-                                id="course"
-                                class="form-select @error('course') is-invalid @enderror"
-                                required
-                            >
-                                <option value="">-- Pilih Kursus --</option>
-
-                                <option
-                                    value="web"
-                                    {{ old('course', request('course')) === 'web' ? 'selected' : '' }}
-                                >
-                                    Web Dasar
-                                </option>
-
-                                <option
-                                    value="php"
-                                    {{ old('course', request('course')) === 'php' ? 'selected' : '' }}
-                                >
-                                    PHP Dasar
-                                </option>
-
-                                <option
-                                    value="laravel"
-                                    {{ old('course', request('course')) === 'laravel' ? 'selected' : '' }}
-                                >
-                                    Laravel Dasar
-                                </option>
-                            </select>
-
-                            @error('course')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-
-                            {{-- Informasi Ketersediaan AJAX --}}
-                            <div id="courseAvailability" class="mt-3"></div>
-                        </div>
-
-                        {{-- Tombol --}}
-                        <div class="d-flex flex-wrap justify-content-between gap-2 border-top pt-4">
-                            <a href="{{ route('home') }}" class="btn btn-outline-secondary">
-                                &larr; Kembali
-                            </a>
-
-                            <button type="submit" class="btn btn-primary">
-                                Lihat Preview Pendaftaran &rarr;
-                            </button>
-                        </div>
-
-                    </form>
-
-                </div>
-            </div>
-
         </div>
+
     </div>
+</div>
 @endsection
-
-@push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const course = document.getElementById('course');
-
-        if (course && course.value) {
-            course.dispatchEvent(new Event('change'));
-        }
-    });
-</script>
-@endpush
