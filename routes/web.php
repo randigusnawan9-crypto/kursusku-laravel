@@ -90,5 +90,14 @@ Route::post('/proses-pendaftaran', function (Request $request) {
 
 })->name('registration.process');
 // ROUTE COURSE - PERTEMUAN 10
+// ROUTE COURSE - PERTEMUAN 11
 Route::resource('courses', CourseController::class)
-    ->only(['index', 'create', 'store']);
+    ->only([
+        'index',
+        'create',
+        'store',
+        'show',
+        'edit',
+        'update',
+        'destroy'
+    ]);

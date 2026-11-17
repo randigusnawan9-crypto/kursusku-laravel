@@ -1,7 +1,6 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
-html,
-body {
+html, body {
     min-height: 100%;
 }
 
@@ -16,35 +15,327 @@ body {
 main {
     flex: 1;
 }
+/* =====================================
+   KURSUSKU - DESAIN BERANDA
+===================================== */
 
-.navbar-brand {
-    letter-spacing: 0.3px;
-}
-
-.card {
-    border-radius: 10px;
-}
-
-.btn {
-    border-radius: 6px;
-}
-/* Foto pada bagian sambutan KursusKu */
-.hero-image {
-    width: 100%;
+.home-hero {
+    background: linear-gradient(120deg, #eff6ff, #f8fbff);
+    border: 1px solid #dbeafe;
+    border-radius: 24px;
+    padding: 48px;
     overflow: hidden;
+}
+
+.hero-badge,
+.section-label {
+    display: inline-block;
+    color: #2563eb;
+    background: #dbeafe;
+    padding: 7px 14px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+}
+
+.hero-title {
+    color: #172554;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.hero-title span {
+    display: block;
+    color: #2563eb;
+}
+
+.hero-description {
+    color: #64748b;
+    font-size: 1.08rem;
+    line-height: 1.8;
+    max-width: 550px;
+}
+
+.hero-note {
+    color: #475569;
+    font-size: 14px;
+}
+
+.hero-note span {
+    color: #16a34a;
+    font-weight: 800;
+    margin-right: 6px;
+}
+
+.hero-image-wrapper {
+    position: relative;
+    min-height: 330px;
+}
+
+.hero-main-image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 20px;
+    box-shadow: 0 18px 40px rgba(37, 99, 235, 0.15);
+}
+
+.hero-image-fallback {
+    display: none;
+    min-height: 350px;
+    padding: 30px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.fallback-icon {
+    font-size: 65px;
+    margin-bottom: 15px;
+}
+
+.floating-card {
+    position: absolute;
+    bottom: 18px;
+    left: -25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+}
+
+.floating-icon {
+    font-size: 28px;
+}
+
+.floating-card strong,
+.floating-card small {
+    display: block;
+}
+
+.floating-card strong {
+    color: #1e293b;
+    font-size: 13px;
+}
+
+.floating-card small {
+    color: #64748b;
+    font-size: 11px;
+}
+
+/* STATISTIK */
+
+.stats-section {
+    padding: 24px 15px;
+    border-radius: 18px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+.stat-item h3 {
+    color: #2563eb;
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.stat-item p {
+    color: #64748b;
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+/* JUDUL SECTION */
+
+.section-heading h2 {
+    color: #172554;
+    font-size: 30px;
+    font-weight: 750;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+.section-heading p {
+    color: #64748b;
+    margin-bottom: 0;
+}
+
+/* KARTU KEUNGGULAN */
+
+.feature-card {
+    padding: 28px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover,
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.10);
+}
+
+.feature-icon {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eff6ff;
+    border-radius: 16px;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.feature-card h4,
+.course-card h4,
+.step-card h4 {
+    color: #1e293b;
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.feature-card p,
+.course-card p,
+.step-card p {
+    color: #64748b;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+/* KARTU KURSUS */
+
+.course-card {
+    height: 100%;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.course-card-top {
+    min-height: 130px;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #dbeafe, #eff6ff);
+}
+
+.course-symbol {
+    font-size: 48px;
+}
+
+.course-tag {
+    padding: 6px 11px;
+    border-radius: 30px;
+    background: white;
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.course-card-body {
+    padding: 24px;
+}
+
+.course-price {
+    color: #2563eb;
+    font-size: 19px;
+    font-weight: 800;
+    margin-top: 18px;
+}
+
+/* ALUR BELAJAR */
+
+.learning-section {
+    padding: 40px 25px;
+    border-radius: 22px;
+    background: #f8fafc;
+}
+
+.step-card {
+    height: 100%;
+    padding: 25px;
+    background: white;
+    border: 1px solid #e2e8f0;
     border-radius: 16px;
 }
 
-.hero-image img {
-    display: block;
-    width: 100%;
-    height: 320px;
-    object-fit: cover;
-    object-position: center;
+.step-number {
+    color: #2563eb;
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 15px;
 }
 
+/* CTA */
+
+.cta-section {
+    padding: 48px 25px;
+    border-radius: 22px;
+    color: white;
+    background: linear-gradient(120deg, #2563eb, #1d4ed8);
+}
+
+.cta-icon {
+    font-size: 38px;
+}
+
+.cta-section h2 {
+    font-size: 30px;
+    font-weight: 800;
+    margin: 15px 0 10px;
+}
+
+.cta-section p {
+    max-width: 650px;
+    margin: 0 auto 24px;
+    color: #dbeafe;
+    line-height: 1.7;
+}
+
+/* RESPONSIVE */
+
 @media (max-width: 767.98px) {
-    .hero-image img {
+    .home-hero {
+        padding: 25px;
+    }
+
+    .hero-image-wrapper {
+        min-height: 230px;
+    }
+
+    .hero-main-image,
+    .hero-image-fallback {
         height: 230px;
+        min-height: 230px;
+    }
+
+    .floating-card {
+        left: 10px;
+        bottom: 10px;
+    }
+
+    .section-heading h2,
+    .cta-section h2 {
+        font-size: 24px;
+    }
+
+    .learning-section {
+        padding: 25px 15px;
     }
 }

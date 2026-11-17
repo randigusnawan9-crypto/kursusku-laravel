@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreCourseRequest;
+use App\Http\Requests\UpdateCourseRequest;
 use Illuminate\Support\Str;
 
 class CourseController extends Controller
@@ -22,18 +23,10 @@ class CourseController extends Controller
         return view('courses.create');
     }
 
-    // Menyimpan kursus ke database
-    public function store(Request $request)
+    // Menyimpan kursus baru
+    public function store(StoreCourseRequest $request)
     {
-        $validated = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:courses,slug'],
-            'description' => ['nullable', 'string'],
-            'price' => ['required', 'numeric', 'min:0'],
-            'duration' => ['required', 'integer', 'min:1'],
-            'start_date' => ['nullable', 'date'],
-            'is_active' => ['nullable', 'boolean'],
-        ]);
+        $validated = $request->validated();
 
         $validated['slug'] = filled($validated['slug'] ?? null)
             ? Str::slug($validated['slug'])
@@ -54,21 +47,37 @@ class CourseController extends Controller
         return view('courses.show', compact('course'));
     }
 
-    // Form edit belum digunakan pada tugas ini
+    // Menampilkan form edit kursus
     public function edit(Course $course)
     {
-        abort(404);
+        return view('courses.edit', compact('course'));
     }
 
-    // Update belum digunakan pada tugas ini
-    public function update(Request $request, Course $course)
+    // Memperbarui data kursus
+    public function update(UpdateCourseRequest $request, Course $course)
     {
-        abort(404);
+        $validated = $request->validated();
+
+        $validated['slug'] = filled($validated['slug'] ?? null)
+            ? Str::slug($validated['slug'])
+            : Str::slug($validated['title']);
+
+        $validated['is_active'] = $request->boolean('is_active');
+
+        $course->update($validated);
+
+        return redirect()
+            ->route('courses.index')
+            ->with('success', 'Kursus berhasil diperbarui!');
     }
 
-    // Hapus belum digunakan pada tugas ini
+    // Menghapus kursus
     public function destroy(Course $course)
     {
-        abort(404);
+        $course->delete();
+
+        return redirect()
+            ->route('courses.index')
+            ->with('success', 'Kursus berhasil dihapus!');
     }
 }

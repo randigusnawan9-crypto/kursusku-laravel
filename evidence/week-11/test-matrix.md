@@ -1,37 +1,49 @@
+
 # TEST MATRIX - KURSUSKU PERTEMUAN 11
 
 ## Informasi Pengujian
 
-- Nama Proyek: KursusKu
-- Pertemuan: 11
-- Modul: CRUD, Form Request, dan Validasi
+- Aplikasi: KursusKu
 - Framework: Laravel
-- Metode Pengujian: Black Box Testing
+- Fitur: CRUD Kursus, Form Request, dan Validasi
+- Tanggal Pengujian: 18 November 2026
 
-## Tabel Pengujian
+## Catatan Struktur Database
 
-| No. | Skenario Pengujian | Hasil yang Diharapkan | Hasil Aktual | Status |
-|---|---|---|---|---|
-| 1 | Membuka halaman daftar kursus | Daftar kursus ditampilkan | Daftar kursus tampil | Lulus |
-| 2 | Membuka halaman detail kursus | Detail kursus ditampilkan | Detail kursus tampil | Lulus |
-| 3 | Membuka halaman edit kursus | Form edit menampilkan data sebelumnya | Data tampil otomatis | Lulus |
-| 4 | Mengosongkan nama kursus | Muncul pesan nama wajib diisi | Pesan validasi muncul | Lulus |
-| 5 | Mengosongkan harga kursus | Muncul pesan harga wajib diisi | Pesan validasi muncul | Lulus |
-| 6 | Mengisi harga dengan huruf | Input harga tidak menerima nilai nonangka | Browser menolak input | Lulus* |
-| 7 | Mengosongkan durasi kursus | Muncul pesan durasi wajib diisi | Pesan validasi muncul | Lulus |
-| 8 | Mengisi durasi dengan angka 0 | Muncul pesan durasi minimal 1 | Pesan validasi muncul | Lulus |
-| 9 | Mengisi nama kurang dari 3 karakter | Muncul pesan nama minimal 3 karakter | Pesan validasi muncul | Lulus |
-| 10 | Menggunakan slug yang sudah dipakai kursus lain | Muncul pesan slug sudah digunakan | Pesan validasi muncul | Lulus |
-| 11 | Menambahkan kursus dengan data valid | Kursus berhasil disimpan | Kursus berhasil ditambahkan | Lulus |
-| 12 | Mengubah data kursus dengan slug milik sendiri | Data berhasil diperbarui | Data berhasil diperbarui | Lulus |
-| 13 | Mengubah data kursus | Muncul pesan kursus berhasil diperbarui | Pesan berhasil diperbarui muncul | Lulus |
-| 14 | Menghapus kursus uji coba | Kursus terhapus dan muncul pesan sukses | Kursus berhasil dihapus | Lulus |
-| 15 | Membatalkan konfirmasi penghapusan | Data kursus tidak jadi dihapus | Penghapusan dibatalkan | Lulus |
+Project menggunakan struktur kolom:
+- title: Nama kursus
+- slug: Identitas unik kursus
+- price: Harga kursus
+- duration: Durasi kursus
+- start_date: Tanggal mulai
+- is_active: Status aktif kursus
+
+Struktur database yang sudah ada dipertahankan sesuai ketentuan praktikum.
+
+## Hasil Pengujian
+
+| No. | Skenario Pengujian | Hasil yang Diharapkan | Status |
+|---|---|---|---|
+| 1 | Nama kursus dikosongkan | Validasi nama wajib diisi | Lulus |
+| 2 | Harga dikosongkan | Validasi harga wajib diisi | Lulus |
+| 3 | Harga diisi huruf | Input angka menolak nilai huruf | Lulus* |
+| 4 | Durasi dikosongkan | Validasi durasi wajib diisi | Lulus |
+| 5 | Durasi diisi 0 | Validasi durasi minimal 1 | Lulus |
+| 6 | Nama kursus kurang dari 3 karakter | Validasi minimal 3 karakter | Lulus |
+| 7 | Slug duplikat saat tambah kursus | Validasi slug sudah digunakan | Lulus |
+| 8 | Menambahkan kursus dengan data valid | Data kursus berhasil disimpan | Lulus |
+| 9 | Membuka detail kursus | Detail kursus ditampilkan | Lulus |
+| 10 | Mengosongkan nama saat edit | Pesan validasi ditampilkan | Lulus |
+| 11 | Menggunakan slug milik kursus lain saat edit | Validasi slug duplikat ditampilkan | Lulus |
+| 12 | Mempertahankan slug milik sendiri saat edit | Update tetap berhasil | Lulus |
+| 13 | Mengubah data kursus dengan benar | Data berhasil diperbarui | Lulus |
+| 14 | Menghapus kursus uji | Data terhapus dan pesan sukses muncul | Lulus |
+| 15 | Membatalkan konfirmasi hapus | Data tetap tersimpan | Lulus |
+
+*Keterangan: Pengujian harga berupa huruf ditolak oleh input angka pada browser. Pengujian ini belum membuktikan validasi numerik Laravel secara terpisah.
 
 ## Kesimpulan
 
-Berdasarkan pengujian yang telah dilakukan, fitur daftar kursus, detail, tambah, edit, hapus, dan validasi formulir pada aplikasi KursusKu telah berjalan sesuai hasil yang diharapkan.
+Berdasarkan pengujian, fitur CRUD kursus, validasi Form Request, halaman detail, proses edit, dan penghapusan data telah berjalan sesuai hasil yang diharapkan.
 
-## Catatan
-
-*Pengujian nomor 6 dinyatakan lulus berdasarkan penolakan input oleh browser pada kolom bertipe number. Validasi numeric Laravel belum diuji secara terpisah.*
+Struktur database tetap menggunakan kolom yang sudah tersedia pada project KursusKu.
