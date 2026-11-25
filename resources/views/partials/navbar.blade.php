@@ -32,16 +32,16 @@
 
                 <!-- DAFTAR KURSUS -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">
+                    <a class="nav-link" href="{{ route('courses.index') }}">
                         Daftar Kursus
                     </a>
                 </li>
 
-                <!-- HASIL PERTEMUAN 10 -->
+                <!-- PENDAFTARAN -->
                 <li class="nav-item ms-lg-3 my-2 my-lg-0">
-                    <a class="btn btn-light btn-sm text-primary fw-bold px-3"
-                       href="{{ route('courses.index') }}">
-                        Hasil Pertemuan 10
+                    <a class="btn btn-primary btn-sm fw-bold px-3"
+                       href="{{ route('register') }}">
+                        Pendaftaran
                     </a>
                 </li>
 
